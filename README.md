@@ -6,7 +6,7 @@
 
 ## Mac 安装
 
-1. 从 [GitHub Release](https://github.com/MacAocean/personal-knowledge-base-t/releases/tag/v1.0) 下载空白版 ZIP，解压到准备长期使用的位置。装好 [Obsidian](https://obsidian.md/download) 后，双击仓库内的 **安装.command**。首次配置需要联网，安装器会准备独立 Python 环境并自动填写路径。
+1. 从 [GitHub Release](https://github.com/MacAocean/xiaohongshu-knowledge-base/releases/tag/v1.0) 下载空白版 ZIP，解压到准备长期使用的位置。装好 [Obsidian](https://obsidian.md/download) 后，双击仓库内的 **安装.command**。首次配置需要联网，安装器会准备独立 Python 环境并自动填写路径。
 2. 第一次在 Obsidian 打开时，选择「打开文件夹作为仓库」，选中刚解压的目录，再打开「开始使用」。在 Codex 中也选择同一个文件夹。
 3. 想用全局快捷键，运行 **配置快捷指令.command**，按提示添加需要的快捷指令。小红书导入器和本地模型可以按需启用。见[安装和快捷指令指南](99_系统/观众上手指南.md)。
 
