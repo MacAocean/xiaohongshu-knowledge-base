@@ -1,0 +1,204 @@
+filters:
+  and:
+    - file.ext == "md"
+    - '!file.inFolder("00_收件箱/_小红书原始导入")'
+    - or:
+        - file.inFolder("00_收件箱")
+        - file.inFolder("01_资料来源")
+        - file.inFolder("02_知识笔记")
+        - file.inFolder("03_项目")
+        - file.inFolder("04_创作成果")
+properties:
+  file.name:
+    displayName: 文件
+  note.title:
+    displayName: 标题
+  note.type:
+    displayName: 类型
+  note.status:
+    displayName: 状态
+  note.topics:
+    displayName: 主题
+  note.created:
+    displayName: 创建
+  note.related:
+    displayName: 关联
+views:
+  - type: table
+    name: 待处理资料
+    filters:
+      and:
+        - file.inFolder("00_收件箱")
+        - note.status != "archived"
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 最近收藏
+    filters:
+      and:
+        - file.inFolder("01_资料来源")
+        - note.demo != true
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: collected_at
+        direction: DESC
+    limit: 50
+  - type: table
+    name: 按主题检索
+    filters:
+      and:
+        - note.demo != true
+        - "!note.topics.isEmpty()"
+    groupBy:
+      property: topics
+      direction: ASC
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 未完成项目
+    filters:
+      and:
+        - file.inFolder("03_项目")
+        - note.status != "done"
+        - note.demo != true
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 正在制作
+    filters:
+      and:
+        - file.inFolder("04_创作成果")
+        - note.status == "draft"
+        - note.demo != true
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 已完成内容
+    filters:
+      and:
+        - file.inFolder("04_创作成果")
+        - note.status == "approved"
+        - note.demo != true
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 演示验收
+    filters:
+      and:
+        - note.demo == true
+    order:
+      - file.name
+      - title
+      - type
+      - status
+      - topics
+      - created
+      - related
+    sort:
+      - property: file.mtime
+        direction: DESC
+  - type: table
+    name: 外部创作参考
+    filters:
+      and:
+        - note.source_type == "external_reference"
+    order:
+      - file.name
+      - title
+      - author
+      - published_at
+      - content_format
+      - transcription_status
+      - analysis_status
+      - visual_status
+  - type: table
+    name: 个人历史定稿
+    filters:
+      and:
+        - file.inFolder("04_创作成果")
+        - note.status == "approved"
+        - note.demo != true
+    order:
+      - file.name
+      - kind
+      - audience
+      - approved_at
+  - type: table
+    name: 关系与知识演化
+    filters:
+      or:
+        - note.type == "relation"
+        - note.type == "evolution"
+    order:
+      - file.name
+      - type
+      - status
+      - relation
+      - left
+      - right
+      - updated_at
+  - type: table
+    name: 待核实或补充
+    filters:
+      or:
+        - note.status == "unverified"
+        - note.status == "needs_manual"
+        - note.analysis_status == "pending"
+        - note.analysis_status == "needs_review"
+    order:
+      - file.name
+      - status
+      - analysis_status
+      - transcription_status

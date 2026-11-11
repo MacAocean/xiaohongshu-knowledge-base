@@ -1,0 +1,1 @@
+{"types":{"id":"text","type":"text","title":"text","created":"date","updated":"date","collected_at":"datetime","topics":"multitext","status":"text","related":"multitext","projects":"multitext","demo":"checkbox","version":"number","project":"text","approved_at":"datetime","source_url":"text"}}

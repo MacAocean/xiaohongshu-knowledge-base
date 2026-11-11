@@ -1,0 +1,9 @@
+{
+  "id": "kb-local-tools",
+  "name": "个人知识库本地工具",
+  "version": "1.0.0",
+  "minAppVersion": "1.6.0",
+  "description": "从 Obsidian 使用本地收件、标准版导入适配、语义检索和视频转写。",
+  "author": "MacAocean",
+  "isDesktopOnly": true
+}

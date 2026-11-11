@@ -1,0 +1,8 @@
+{
+  "attachmentFolderPath": "01_资料来源/_附件",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "00_收件箱",
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "absolute",
+  "useMarkdownLinks": false
+}
