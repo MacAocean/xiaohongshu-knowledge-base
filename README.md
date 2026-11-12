@@ -4,7 +4,7 @@
 
 [开始使用](05_视图/开始使用.md) · [日常使用手册](99_系统/使用手册.md) · [新 Mac 配置指南](99_系统/观众上手指南.md)
 
-## Mac 一键安装 · v1.0
+## Mac 安装 · v1.0
 
 **[下载 v1.0 Mac 完整安装包](https://github.com/MacAocean/xiaohongshu-knowledge-base/releases/download/v1.0/personal-knowledge-base-t-v1.0-mac-arm64.zip)** · [发布页和校验文件](https://github.com/MacAocean/xiaohongshu-knowledge-base/releases/tag/v1.0)
 
@@ -13,6 +13,8 @@
 1. 装好 Obsidian，下载完整 ZIP，解压到你打算长期使用的位置。双击里面的 **安装.command**。首次安装时需联网准备 Python 环境和依赖。安装器会校验包内模型和工具、写好路径并检查知识库。
 2. 第一次进入 Obsidian 时，选择「打开文件夹作为仓库」，选中刚解压的目录。按提示启用「个人知识库本地工具」，需要导入小红书时再启用「Xiaohongshu Importer」。
 3. 想用全局快捷键，双击 **配置快捷指令.command**，导入并绑定两条指令。想用 AI 查库和写稿，在 Codex 登录自己的账号，并打开同一个仓库文件夹。[完整配置步骤](99_系统/观众上手指南.md)
+
+**首次双击被 macOS 拦截时**，如果提示无法验证开发者或 Apple 无法检查文件，请先确认 ZIP 来自本项目的 GitHub 发布页，并核对发布页的 SHA-256。双击尝试后，前往「系统设置 → 隐私与安全性」，在页面下方点「仍要打开」，再确认打开。遇到文件损坏、有害软件或校验失败的提示时先停止安装。详细操作和其他提示见[安装配置指南](99_系统/观众上手指南.md#首次打开安装脚本被-macos-拦截)及 [Apple 官方说明](https://support.apple.com/zh-cn/102445)。
 
 下载 GitHub 自动生成的 Source code ZIP 或直接克隆仓库时，可以运行基础安装器。转写和语义检索需要完整安装包里的资源。
 
