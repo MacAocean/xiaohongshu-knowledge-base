@@ -31,3 +31,6 @@ __pycache__/
 *.py[cod]
 *.sqlite*
 .env*
+
+# GitHub Release payload. Large binaries stay in the downloadable ZIP.
+/.安装资源/

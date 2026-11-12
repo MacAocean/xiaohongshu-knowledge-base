@@ -5,6 +5,7 @@ umask 077
 vault_dir=${0:A:h}
 support=${KB_INSTALL_SUPPORT:-$HOME/Library/Application Support/personal-knowledge-base-t}
 python_bin="$support/venv/bin/python3"
+bundle="$vault_dir/.安装资源"
 open_vault=1
 case ${1:-} in
   '') ;;
@@ -13,6 +14,10 @@ case ${1:-} in
 esac
 trap 'print -u2 "安装未完成。请检查上方提示，处理后可重新运行。"' ZERR
 [[ -f "$vault_dir/99_系统/程序/知识库.py" && -d "$vault_dir/.obsidian" ]]
+if [[ -d "$bundle" && ( $(/usr/bin/uname -m) != arm64 || $(/usr/bin/sw_vers -productVersion | /usr/bin/cut -d. -f1) -lt 15 ) ]]; then
+  print -u2 '完整安装包需要 Apple Silicon Mac 和 macOS 15 或更新版本。'
+  exit 1
+fi
 mkdir -p "$support/bin" "$vault_dir/.obsidian/plugins/kb-local-tools"
 
 install_uv() {
@@ -63,7 +68,16 @@ if [[ ! -x "$python_bin" ]]; then
       "$support/bin/uv" venv --no-project --python 3.14 --seed "$support/venv"
   fi
 fi
-"$python_bin" -m pip install --disable-pip-version-check --only-binary=:all: -r "$vault_dir/99_系统/依赖.txt"
+requirements="$vault_dir/99_系统/依赖.txt"
+if [[ -d "$bundle" ]]; then
+  print '正在校验并安装包内的 Whisper、E5 和媒体工具…'
+  "$python_bin" "$vault_dir/99_系统/程序/安装资源.py" "$bundle" "$support"
+  requirements="$vault_dir/99_系统/依赖-本地模型.txt"
+fi
+"$python_bin" -m pip install --disable-pip-version-check --only-binary=:all: -r "$requirements"
+if [[ -d "$bundle" ]]; then
+  "$python_bin" -c 'import numpy, onnxruntime, tokenizers'
+fi
 "$python_bin" "$vault_dir/99_系统/程序/知识库.py" --root "$vault_dir" check
 
 /usr/bin/install -m 700 "$vault_dir/快捷指令/运行快捷指令.sh" "$support/bin/kb-shortcut"
@@ -95,7 +109,12 @@ for relative in ('log.md', '99_系统/_运行数据/日志/系统日志.md',
         os.chflags(log, log.stat().st_flags | stat.UF_APPEND)
 PY
 
-print '配置完成。'
+if [[ -d "$bundle" ]]; then
+  print '配置完成。视频转写和语义检索的本地模型已就绪。'
+else
+  print '基础配置完成。需要内置模型时，请从 GitHub 发布页下载 Mac 完整安装包。'
+fi
+print '启用插件和添加快捷指令的步骤见「99_系统/观众上手指南.md」。'
 if (( open_vault )); then
   launch_uri=$("$python_bin" - "$vault_dir" <<'PY'
 import json
